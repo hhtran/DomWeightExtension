@@ -8,8 +8,9 @@ function domNodeCount(node, executeOnNode) {
     return 0;
   }
   const count = [...node.children].reduce((acc, cur) => {
-    const count = acc + domNodeCount(cur, executeOnNode);
-    executeOnNode && executeOnNode(cur, count);
+    const childNodeCount = domNodeCount(cur, executeOnNode);
+    const count = acc + childNodeCount;
+    executeOnNode && executeOnNode(cur, childNodeCount);
     return count;
   }, 0);
   return count + 1;
@@ -22,7 +23,3 @@ function colorForCount(count) {
 domNodeCount(document.body, (node, count) => {
   node.style.backgroundColor = colorForCount(count);
 });
-
-console.log("WEEE");
-
-alert("hello");
